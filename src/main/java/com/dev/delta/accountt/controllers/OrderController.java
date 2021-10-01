@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.delta.accountt.entities.Account;
-import com.dev.delta.accountt.services.AccountService;
-
+import com.dev.delta.accountt.entities.Order;
+import com.dev.delta.accountt.services.OrderService;
 @RestController
-@RequestMapping("account")
+@RequestMapping("/order")
 @CrossOrigin
-public class AccountController {
+public class OrderController{
+
 	@Autowired
-	AccountService accountService;
+	OrderService orderService;
 
 	@PostMapping("/create")
-	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Account projectAccount, BindingResult result) {
+	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Order projectOrder, BindingResult result) {
 
 		if (result.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<String, String>();
@@ -40,25 +40,25 @@ public class AccountController {
 			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
 		}
 
-		Account newPT = accountService.saveOrUpdate(projectAccount);
+		Order newPT = orderService.saveOrUpdate(projectOrder);
 
-		return new ResponseEntity<Account>(newPT, HttpStatus.CREATED);
+		return new ResponseEntity<Order>(newPT, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Account> getAllAccounts() {
-		return accountService.findAll();
+	public Iterable<Order> getAllOrders() {
+		return orderService.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-		Account account = accountService.findById(id);
-		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	public ResponseEntity<Order> getOrderById(@PathVariable Long id) {
+		Order order = orderService.findById(id);
+		return new ResponseEntity<Order>(order, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
-		accountService.delete(id);
-		return new ResponseEntity<String>("account was deleted", HttpStatus.OK);
+	public ResponseEntity<String> deleteOrder(@PathVariable Long id) {
+		orderService.delete(id);
+		return new ResponseEntity<String>("order was deleted", HttpStatus.OK);
 	}
 }

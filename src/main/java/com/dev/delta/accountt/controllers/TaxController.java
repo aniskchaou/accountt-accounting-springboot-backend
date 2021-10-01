@@ -22,7 +22,7 @@ import com.dev.delta.accountt.entities.Tax;
 import com.dev.delta.accountt.services.TaxService;
 
 @RestController
-@RequestMapping("/accountt/tax")
+@RequestMapping("/tax")
 @CrossOrigin
 public class TaxController {
 	@Autowired

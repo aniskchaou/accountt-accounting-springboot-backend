@@ -22,7 +22,7 @@ import com.dev.delta.accountt.entities.Client;
 import com.dev.delta.accountt.services.ClientService;
 
 @RestController
-@RequestMapping("/accountt/client")
+@RequestMapping("/client")
 @CrossOrigin
 public class ClientController {
 	@Autowired

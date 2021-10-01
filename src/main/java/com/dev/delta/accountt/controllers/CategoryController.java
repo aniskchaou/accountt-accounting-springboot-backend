@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.delta.accountt.entities.Account;
-import com.dev.delta.accountt.services.AccountService;
-
+import com.dev.delta.accountt.entities.Category;
+import com.dev.delta.accountt.services.CategoryService;
 @RestController
-@RequestMapping("account")
+@RequestMapping("/category")
 @CrossOrigin
-public class AccountController {
+public class CategoryController {
+
 	@Autowired
-	AccountService accountService;
+	CategoryService categoryService;
 
 	@PostMapping("/create")
-	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Account projectAccount, BindingResult result) {
+	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Category projectCategory, BindingResult result) {
 
 		if (result.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<String, String>();
@@ -40,25 +40,25 @@ public class AccountController {
 			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
 		}
 
-		Account newPT = accountService.saveOrUpdate(projectAccount);
+		Category newPT = categoryService.saveOrUpdate(projectCategory);
 
-		return new ResponseEntity<Account>(newPT, HttpStatus.CREATED);
+		return new ResponseEntity<Category>(newPT, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Account> getAllAccounts() {
-		return accountService.findAll();
+	public Iterable<Category> getAllCategorys() {
+		return categoryService.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-		Account account = accountService.findById(id);
-		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	public ResponseEntity<Category> getCategoryById(@PathVariable Long id) {
+		Category category = categoryService.findById(id);
+		return new ResponseEntity<Category>(category, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
-		accountService.delete(id);
-		return new ResponseEntity<String>("account was deleted", HttpStatus.OK);
+	public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
+		categoryService.delete(id);
+		return new ResponseEntity<String>("category was deleted", HttpStatus.OK);
 	}
 }

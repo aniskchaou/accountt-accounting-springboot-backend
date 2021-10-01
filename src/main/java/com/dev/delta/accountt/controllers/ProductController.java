@@ -24,7 +24,7 @@ import com.dev.delta.accountt.entities.Product;
 import com.dev.delta.accountt.services.ProductService;
 
 @RestController
-@RequestMapping("/accountt/product")
+@RequestMapping("/product")
 @CrossOrigin(origins = "http://localhost:4200")
 public class ProductController {
 

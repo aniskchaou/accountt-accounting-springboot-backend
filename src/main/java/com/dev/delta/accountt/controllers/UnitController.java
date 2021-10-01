@@ -18,18 +18,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.delta.accountt.entities.Account;
-import com.dev.delta.accountt.services.AccountService;
+import com.dev.delta.accountt.entities.Unit;
+import com.dev.delta.accountt.services.UnitService;
 
 @RestController
-@RequestMapping("account")
+@RequestMapping("/unit")
 @CrossOrigin
-public class AccountController {
+public class UnitController {
+
 	@Autowired
-	AccountService accountService;
+	UnitService unitService;
 
 	@PostMapping("/create")
-	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Account projectAccount, BindingResult result) {
+	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Unit projectUnit, BindingResult result) {
 
 		if (result.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<String, String>();
@@ -40,25 +41,25 @@ public class AccountController {
 			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
 		}
 
-		Account newPT = accountService.saveOrUpdate(projectAccount);
+		Unit newPT = unitService.saveOrUpdate(projectUnit);
 
-		return new ResponseEntity<Account>(newPT, HttpStatus.CREATED);
+		return new ResponseEntity<Unit>(newPT, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Account> getAllAccounts() {
-		return accountService.findAll();
+	public Iterable<Unit> getAllUnits() {
+		return unitService.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-		Account account = accountService.findById(id);
-		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	public ResponseEntity<Unit> getUnitById(@PathVariable Long id) {
+		Unit unit = unitService.findById(id);
+		return new ResponseEntity<Unit>(unit, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
-		accountService.delete(id);
-		return new ResponseEntity<String>("account was deleted", HttpStatus.OK);
+	public ResponseEntity<String> deleteUnit(@PathVariable Long id) {
+		unitService.delete(id);
+		return new ResponseEntity<String>("unit was deleted", HttpStatus.OK);
 	}
 }

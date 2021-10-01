@@ -12,7 +12,7 @@ import com.dev.delta.accountt.entities.Client;
 import com.dev.delta.accountt.services.ClientService;
 
 @RestController
-@RequestMapping("/accountt/dashboard")
+@RequestMapping("/dashboard")
 @CrossOrigin
 public class AccounttDashBoardController {
 

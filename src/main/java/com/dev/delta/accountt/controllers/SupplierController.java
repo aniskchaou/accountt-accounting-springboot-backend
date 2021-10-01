@@ -22,7 +22,7 @@ import com.dev.delta.accountt.entities.Supplier;
 import com.dev.delta.accountt.services.SupplierService;
 
 @RestController
-@RequestMapping("/accountt/supplier")
+@RequestMapping("/supplier")
 @CrossOrigin
 public class SupplierController {
 	@Autowired

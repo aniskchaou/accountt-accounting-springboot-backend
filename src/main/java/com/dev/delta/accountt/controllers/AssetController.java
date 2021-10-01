@@ -18,18 +18,18 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.dev.delta.accountt.entities.Account;
-import com.dev.delta.accountt.services.AccountService;
-
+import com.dev.delta.accountt.entities.Asset;
+import com.dev.delta.accountt.services.AssetService;
 @RestController
-@RequestMapping("account")
+@RequestMapping("/asset")
 @CrossOrigin
-public class AccountController {
+public class AssetController {
+
 	@Autowired
-	AccountService accountService;
+	AssetService assetService;
 
 	@PostMapping("/create")
-	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Account projectAccount, BindingResult result) {
+	public ResponseEntity<?> addPTToBoard(@Validated @RequestBody Asset projectAsset, BindingResult result) {
 
 		if (result.hasErrors()) {
 			Map<String, String> errorMap = new HashMap<String, String>();
@@ -40,25 +40,25 @@ public class AccountController {
 			return new ResponseEntity<Map<String, String>>(errorMap, HttpStatus.BAD_REQUEST);
 		}
 
-		Account newPT = accountService.saveOrUpdate(projectAccount);
+		Asset newPT = assetService.saveOrUpdate(projectAsset);
 
-		return new ResponseEntity<Account>(newPT, HttpStatus.CREATED);
+		return new ResponseEntity<Asset>(newPT, HttpStatus.CREATED);
 	}
 
 	@GetMapping("/all")
-	public Iterable<Account> getAllAccounts() {
-		return accountService.findAll();
+	public Iterable<Asset> getAllAssets() {
+		return assetService.findAll();
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Account> getAccountById(@PathVariable Long id) {
-		Account account = accountService.findById(id);
-		return new ResponseEntity<Account>(account, HttpStatus.OK);
+	public ResponseEntity<Asset> getAssetById(@PathVariable Long id) {
+		Asset asset = assetService.findById(id);
+		return new ResponseEntity<Asset>(asset, HttpStatus.OK);
 	}
 
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<String> deleteAccount(@PathVariable Long id) {
-		accountService.delete(id);
-		return new ResponseEntity<String>("account was deleted", HttpStatus.OK);
+	public ResponseEntity<String> deleteAsset(@PathVariable Long id) {
+		assetService.delete(id);
+		return new ResponseEntity<String>("asset was deleted", HttpStatus.OK);
 	}
 }
